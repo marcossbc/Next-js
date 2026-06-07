@@ -1,15 +1,59 @@
-import { greet} from "./form/greet";
+"use client";
+
+import { useActionState } from "react";
+import { submitForm } from "./form/submitForm";
 
 
-export default  async function Home() {
+const initialState = {
+  success: false,
+  message: "",
+  error: "",
+};
+
+export default function FormPage() {
+  const [state, formAction] =
+    useActionState(submitForm, initialState);
 
   return (
-    
-    <form action={greet} method="post" className="p-4">
-      <label htmlFor="name">Name:</label>
-      <input type="text" id="name" name="name" required />
-      <button type="submit">Submit</button>
+    <form
+      action={formAction}
+      className="flex flex-col gap-3 max-w-md"
+    >
+      <input
+        type="text"
+        name="firstName"
+        placeholder="First Name"
+      />
+
+      <input
+        type="text"
+        name="lastName"
+        placeholder="Last Name"
+      />
+
+      <input
+        type="email"
+        name="email"
+        placeholder="Email"
+      />
+
+      <input
+        type="password"
+        name="password"
+        placeholder="Password"
+      />
+
+      <button type="submit">
+        Submit
+      </button>
+
+      {state.success && (
+        <p>{state.message}</p>
+      )}
+
+      {state.error && (
+        <p>{state.error}</p>
+      )}
     </form>
-  
   );
 }
