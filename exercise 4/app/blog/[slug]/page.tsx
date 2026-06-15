@@ -1,7 +1,5 @@
 import React from 'react'
 
-
-
 export async function generateStaticParams({params} : {params: {slug: string}}) {
     const posts = await fetch('https://jsonplaceholder.typicode.com/posts');
     const data = await posts.json();
