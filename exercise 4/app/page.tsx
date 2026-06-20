@@ -1,59 +1,47 @@
 "use client";
 
 import { useActionState } from "react";
-import { submitForm } from "./form/submitForm";
+// import { submitForm } from "./form/submitForm";
 
 
-const initialState = {
-  success: false,
-  message: "",
-  error: "",
-};
 
 export default function FormPage() {
-  const [state, formAction] =
-    useActionState(submitForm, initialState);
-
+  
   return (
-    <form
-      action={formAction}
-      className="flex flex-col gap-3 max-w-md"
-    >
-      <input className="text"
-        type="text"
-        name="firstName"
-        placeholder="First Name"
-      />
-
-      <input
-        type="text"
-        name="lastName"
-        placeholder="Last Name"
-      />
-
-      <input
-        type="email"
-        name="email"
-        placeholder="Email"
-      />
-
-      <input
-        type="password"
-        name="password"
-        placeholder="Password"
-      />
-
-      <button type="submit">
-        Submit
-      </button>
-
-      {state.success && (
-        <p>{state.message}</p>
-      )}
-
-      {state.error && (
-        <p>{state.error}</p>
-      )}
-    </form>
+    <div className="flex flex-col items-center justify-center min-h-screen py-2">
+      <h1 className="text-4xl font-bold mb-4">Add a New Todo</h1>
+      <form action="/api/todos" method="POST" className="w-full max-w-md">
+        <div className="mb-4">
+          <label htmlFor="title" className="block text-gray-700 font-bold mb-2">
+            Title
+          </label>
+          <input
+            type="text"
+            id="title"
+            name="title"
+            required
+            className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300"
+          />
+        </div>
+        <div className="mb-4">
+          <label htmlFor="description" className="block text-gray-700 font-bold mb-2">
+            Description
+          </label>
+          <textarea
+            id="description"
+            name="description"
+            required
+            className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300"
+          ></textarea>
+        </div>
+        <button
+          type="submit"
+          className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300"
+        >
+          Add Todo
+        </button>
+      </form>
+    </div>
+    
   );
 }
