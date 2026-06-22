@@ -7,6 +7,7 @@ import { updateTodo, fetchTodoById } from "../lib/todo";
 export async function updateTodoAction(formData: FormData) {
   const id = formData.get('id') as string;
   const title = formData.get('title') as string;
+  const priority = formData.get("priority");
 
   if (!id) {
     console.error('Todo ID is required');
@@ -29,7 +30,13 @@ export async function updateTodoAction(formData: FormData) {
     return;
   }
 
-  const success = await updateTodo(id, { title: title.trim() });
+  const success = await updateTodo(id, { 
+    title: title.trim(),
+    priority:priority as "low" | "medium" | "high"
+
+
+
+   });
 
   if (!success) {
     console.error('Failed to update todo');
