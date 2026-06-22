@@ -1,29 +1,31 @@
-'use server'
+'use server';
 
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { createTodo } from "../lib/todo";
 
-export async function createTodoAction(formData: FormData) {
-  const title = formData.get('title') as string;
+export async function createTodoAction(
+  prevState: any,
+  formData: FormData
+) {
+  const title = formData.get("title") as string;
 
   if (!title || title.trim().length === 0) {
-    console.error('Title is required');
-    return;
+    return { error: "Title is required" };
   }
 
   if (title.length > 200) {
-    console.error('Title must be less than 200 characters');
-    return;
+    return { error: "Title must be less than 200 characters" };
   }
 
-  const todoId = await createTodo({ title: title.trim() });
+  const todoId = await createTodo({
+    title: title.trim(),
+  });
 
   if (!todoId) {
-    console.error('Failed to create todo');
-    return;
+    return { error: "Failed to create todo" };
   }
 
-  revalidatePath('/');
-  redirect('/');
+  revalidatePath("/");
+  redirect("/");
 }
