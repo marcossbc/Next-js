@@ -1,8 +1,7 @@
 import Link from "next/link";
 import { fetchTodos } from "./lib/todo"; 
 
-// Isticmaal @/app/ si uu Next.js marnaba uga khaldamin meesha ay ku jiraan
-// import SearchInput from "@/app/SearchInput"; 
+
 import TodoList from "@/app/TodoList"; 
 import SearchInput from "./SearchInput";
 
